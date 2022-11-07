@@ -7,11 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Common\Dtos\" />
     <Folder Include="Common\Validations\" />
-    <Folder Include="Handlers\" />
     <Folder Include="Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CleanOrders.Infrastructure\CleanOrders.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

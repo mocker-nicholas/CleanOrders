@@ -1,6 +1,6 @@
 ﻿using CleanOrders.Application.Commands.Accounts;
+using CleanOrders.Application.Dtos.Accounts;
 using CleanOrders.Infrastructure.Data;
-using CleanOrders.Infrastructure.Dtos.Accounts;
 using MediatR;
 using OrdersDomain.Core.Aggregates.Entities.Accounts;
 

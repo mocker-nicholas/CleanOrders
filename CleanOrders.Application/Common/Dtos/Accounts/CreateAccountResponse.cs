@@ -1,6 +1,6 @@
 ﻿using OrdersDomain.Core.Aggregates.Entities.Accounts;
 
-namespace CleanOrders.Infrastructure.Dtos.Accounts
+namespace CleanOrders.Application.Dtos.Accounts
 {
     public class CreateAccountResponse
     {

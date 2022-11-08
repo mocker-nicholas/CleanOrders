@@ -1,4 +1,4 @@
-﻿using CleanOrders.Infrastructure.Dtos.Accounts;
+﻿using CleanOrders.Application.Dtos.Accounts;
 using MediatR;
 
 namespace CleanOrders.Application.Commands.Accounts

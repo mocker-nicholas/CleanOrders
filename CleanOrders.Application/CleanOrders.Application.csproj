@@ -12,11 +12,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.2.2" />
     <PackageReference Include="MediatR" Version="11.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CleanOrders.Infrastructure\CleanOrders.Infrastructure.csproj" />
+    <ProjectReference Include="..\OrdersDomain.Core\OrdersDomain.Core.csproj" />
   </ItemGroup>
 
 </Project>

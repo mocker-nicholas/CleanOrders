@@ -1,16 +1,23 @@
-﻿using OrdersDomain.Core.Aggregates.Entities.Accounts;
+﻿using CleanOrders.Application.Common.Dtos.Accounts;
 
 namespace CleanOrders.Application.Dtos.Accounts
 {
     public class CreateAccountResponse
     {
-        public CreateAccountResponse(Account account)
+        public CreateAccountResponse(AccountDto account)
         {
             Data = account;
         }
 
+        public CreateAccountResponse(string message)
+        {
+            Status = "error";
+            Message = message;
+            Data = null;
+        }
+
         public string Status { get; set; } = "success";
         public string Message { get; set; } = "success";
-        public Account Data { get; set; }
+        public AccountDto? Data { get; set; }
     }
 }

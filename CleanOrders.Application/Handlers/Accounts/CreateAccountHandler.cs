@@ -1,6 +1,7 @@
 ﻿using CleanOrders.Application.Commands.Accounts;
 using CleanOrders.Application.Common.Dtos.Accounts;
 using CleanOrders.Application.Dtos.Accounts;
+using CleanOrders.Application.Interfaces.Repositories;
 using CleanOrders.Infrastructure.Data;
 using FluentValidation.Results;
 using MediatR;
@@ -11,9 +12,11 @@ namespace CleanOrders.Application.Handlers.Accounts
     public class CreateAccountHandler : IRequestHandler<CreateAccountCommand, CreateAccountResponse>
     {
         private readonly ApplicationContext _context;
-        public CreateAccountHandler(ApplicationContext context)
+        private readonly IAccountRepositoryAsync _accountRepositoryAsync;
+        public CreateAccountHandler(ApplicationContext context, IAccountRepositoryAsync accountRepository)
         {
             _context = context;
+            _accountRepositoryAsync = accountRepository;
         }
 
         public async Task<CreateAccountResponse> Handle(CreateAccountCommand request, CancellationToken cancellationToken)

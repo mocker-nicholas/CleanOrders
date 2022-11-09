@@ -1,4 +1,5 @@
 using CleanOrders.Application.Commands.Accounts;
+using CleanOrders.Application.Interfaces.Repositories;
 using CleanOrders.Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(CreateAccountCommand).Assembly);
+builder.Services.AddScoped<IAccountRepositoryAsync, >
 builder.Services.AddControllers().AddJsonOptions(options =>
 { options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
 

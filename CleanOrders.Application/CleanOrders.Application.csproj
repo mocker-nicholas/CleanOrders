@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanOrders.Infrastructure\CleanOrders.Infrastructure.csproj" />
     <ProjectReference Include="..\OrdersDomain.Core\OrdersDomain.Core.csproj" />
   </ItemGroup>
 

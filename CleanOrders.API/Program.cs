@@ -1,6 +1,7 @@
 using CleanOrders.Application.Commands.Accounts;
 using CleanOrders.Application.Interfaces.Repositories;
 using CleanOrders.Infrastructure.Data;
+using CleanOrders.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -21,7 +22,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(CreateAccountCommand).Assembly);
-builder.Services.AddScoped<IAccountRepositoryAsync, >
+builder.Services.AddScoped<IAccountRepositoryAsync, AccountRepository>(); // Cant add singleton to scoped service?
 builder.Services.AddControllers().AddJsonOptions(options =>
 { options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
 

@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CleanOrders.Application\CleanOrders.Application.csproj" />
     <ProjectReference Include="..\OrdersDomain.Core\OrdersDomain.Core.csproj" />
   </ItemGroup>
 

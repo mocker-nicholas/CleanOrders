@@ -4,6 +4,6 @@ namespace CleanOrders.Application.Interfaces.Repositories
 {
     public interface IAccountRepositoryAsync : IGenericRepositoryAsync<Account>
     {
-        bool EmailIsUnique(string email);
+        Task<bool> EmailIsUnique(string email);
     }
 }

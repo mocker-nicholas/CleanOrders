@@ -1,6 +1,6 @@
-﻿using CleanOrders.Application.Interfaces;
-using CleanOrders.Application.Interfaces.Repositories;
+﻿using CleanOrders.Application.Interfaces.Repositories;
 using CleanOrders.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using OrdersDomain.Core.Aggregates.Entities.Accounts;
 
 namespace CleanOrders.Infrastructure.Repositories
@@ -14,38 +14,47 @@ namespace CleanOrders.Infrastructure.Repositories
         }
         public async Task<Account> AddAsync(Account account)
         {
-            await _context.Accounts.AddAsync(account);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.Accounts.AddAsync(account);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("Error adding account");
+            }
             return account;
 
         }
 
-        Task IGenericRepositoryAsync<Account>.DeleteAsync(Account entity)
+        public async Task<Account> DeleteAsync(Account entity)
         {
             throw new NotImplementedException();
         }
 
-        bool IAccountRepositoryAsync.EmailIsUnique(string email)
+        public async Task<bool> EmailIsUnique(string email)
+        {
+            List<Account> accounts = await _context.Accounts.Where(x => x.Email == email).ToListAsync();
+            bool result = accounts.Count == 0;
+            return result;
+        }
+
+        public Task<IReadOnlyList<Account>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        Task<IReadOnlyList<Account>> IGenericRepositoryAsync<Account>.GetAllAsync()
+        public Task<Account> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        Task<Account> IGenericRepositoryAsync<Account>.GetByIdAsync(int id)
+        public Task<IReadOnlyList<Account>> GetPagedReponseAsync(int pageNumber, int pageSize)
         {
             throw new NotImplementedException();
         }
 
-        Task<IReadOnlyList<Account>> IGenericRepositoryAsync<Account>.GetPagedReponseAsync(int pageNumber, int pageSize)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task IGenericRepositoryAsync<Account>.UpdateAsync(Account entity)
+        public Task UpdateAsync(Account entity)
         {
             throw new NotImplementedException();
         }

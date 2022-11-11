@@ -22,14 +22,22 @@ namespace CleanOrders.Application.Handlers.Accounts
         {
             CreateAccountCommandValidator Validator = new();
             ValidationResult result = Validator.Validate(request);
-            if (result.IsValid)
+            if (!result.IsValid)
             {
-                Account account = new(request.Password, request.Email, request.Name);
-                await _accountRepositoryAsync.AddAsync(account);
-                AccountDto newAccount = new(account);
-                return new CreateAccountResponse(newAccount);
+                return new CreateAccountResponse(result.ToString());
             }
-            return new CreateAccountResponse(result.ToString());
+
+            bool emailIsUnique = await _accountRepositoryAsync.EmailIsUnique(request.Email);
+            if (!emailIsUnique)
+            {
+                return new CreateAccountResponse("An account for that address already exists");
+            }
+
+            Account account = new(request.Password, request.Email, request.Name);
+            await _accountRepositoryAsync.AddAsync(account);
+            AccountDto newAccount = new(account);
+            return new CreateAccountResponse(newAccount);
+
         }
     }
 }

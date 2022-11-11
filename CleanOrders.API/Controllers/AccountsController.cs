@@ -1,4 +1,5 @@
 ﻿using CleanOrders.Application.Commands.Accounts;
+using CleanOrders.Application.Queries.Accounts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,11 @@ namespace CleanOrders.API.Controllers
         public AccountsController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllAccounts()
+        {
+            return Ok(await _mediator.Send(new GetAllAccountsQuery()));
         }
 
         [HttpPost]

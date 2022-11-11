@@ -10,11 +10,9 @@ namespace CleanOrders.Application.Handlers.Accounts
 {
     public class CreateAccountHandler : IRequestHandler<CreateAccountCommand, CreateAccountResponse>
     {
-        //private readonly ApplicationContext _context;
         private readonly IAccountRepositoryAsync _accountRepositoryAsync;
         public CreateAccountHandler(IAccountRepositoryAsync accountRepository)
         {
-            //_context = context;
             _accountRepositoryAsync = accountRepository;
         }
 
@@ -37,7 +35,6 @@ namespace CleanOrders.Application.Handlers.Accounts
             await _accountRepositoryAsync.AddAsync(account);
             AccountDto newAccount = new(account);
             return new CreateAccountResponse(newAccount);
-
         }
     }
 }

@@ -39,9 +39,10 @@ namespace CleanOrders.Infrastructure.Repositories
             return result;
         }
 
-        public Task<IReadOnlyList<Account>> GetAllAsync()
+        public async Task<IReadOnlyList<Account>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            List<Account> accounts = await _context.Accounts.ToListAsync();
+            return accounts;
         }
 
         public Task<Account> GetByIdAsync(int id)

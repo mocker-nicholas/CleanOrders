@@ -20,6 +20,12 @@ namespace CleanOrders.API.Controllers
             return Ok(await _mediator.Send(new GetAllAccountsQuery()));
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAccountById(string Id)
+        {
+            return Ok(await _mediator.Send(new GetAccountByIdQuery(Id)));
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateAccount(CreateAccountCommand command)
         {

@@ -45,9 +45,10 @@ namespace CleanOrders.Infrastructure.Repositories
             return accounts;
         }
 
-        public Task<Account> GetByIdAsync(int id)
+        public async Task<Account> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            Account? account = await _context.Accounts.FindAsync(id);
+            return account;
         }
 
         public Task<IReadOnlyList<Account>> GetPagedReponseAsync(int pageNumber, int pageSize)

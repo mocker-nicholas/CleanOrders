@@ -32,6 +32,16 @@ namespace CleanOrders.API.Controllers
             return Ok(await _mediator.Send(command));
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAccount(string id, UpdateAccountCommand command)
+        {
+            if (id != command.Id)
+            {
+                return BadRequest();
+            }
+            return Ok(await _mediator.Send(command));
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAccount(string id)
         {

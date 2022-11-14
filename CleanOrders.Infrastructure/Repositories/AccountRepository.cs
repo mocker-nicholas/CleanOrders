@@ -62,9 +62,11 @@ namespace CleanOrders.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(Account entity)
+        public async Task<Account> UpdateAsync(Account account)
         {
-            throw new NotImplementedException();
+            _context.Accounts.Update(account);
+            await _context.SaveChangesAsync();
+            return account;
         }
     }
 }

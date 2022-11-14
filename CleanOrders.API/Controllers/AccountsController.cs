@@ -31,5 +31,11 @@ namespace CleanOrders.API.Controllers
         {
             return Ok(await _mediator.Send(command));
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAccount(string id)
+        {
+            return Ok(await _mediator.Send(new DeleteAccountCommand { Id = id }));
+        }
     }
 }

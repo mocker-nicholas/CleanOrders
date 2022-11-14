@@ -3,6 +3,8 @@ using System;
 using CleanOrders.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
@@ -45,7 +47,7 @@ namespace CleanOrders.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Accounts", (string)null);
                 });
 
             modelBuilder.Entity("OrdersDomain.Core.Aggregates.Entities.Orders.Address", b =>
@@ -81,7 +83,7 @@ namespace CleanOrders.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address");
+                    b.ToTable("Address", (string)null);
                 });
 #pragma warning restore 612, 618
         }

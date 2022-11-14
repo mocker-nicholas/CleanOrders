@@ -27,9 +27,15 @@ namespace CleanOrders.Infrastructure.Repositories
 
         }
 
-        public async Task<Account> DeleteAsync(Account entity)
+        public async Task<Account> DeleteAsync(string id)
         {
-            throw new NotImplementedException();
+            Account? account = await _context.Accounts.FindAsync(id);
+            if (account != null)
+            {
+                _context.Accounts.Remove(account);
+                await _context.SaveChangesAsync();
+            }
+            return account;
         }
 
         public async Task<bool> EmailIsUnique(string email)

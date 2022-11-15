@@ -23,20 +23,21 @@ namespace CleanOrders.Application.Handlers.Accounts
             {
                 return new UpdateAccountResponse(ValidationResult.ToString());
             }
-            bool emailIsUnique = await _accountRepositoryAsync.EmailIsUnique(request.Email);
-            if (!emailIsUnique)
-            {
-                return new UpdateAccountResponse("An account for that address already exists");
-            }
             Account accountToUpdate = await _accountRepositoryAsync.GetByIdAsync(request.Id);
             if (accountToUpdate == null)
             {
                 return new UpdateAccountResponse("No Account was found");
             }
+            bool emailIsUnique = await _accountRepositoryAsync.EmailIsUnique(request.Email);
+            if (!emailIsUnique && request.Email != accountToUpdate.Email)
+            {
+                return new UpdateAccountResponse("An account for that address already exists");
+            }
+            accountToUpdate.Name = request.Name;
+            accountToUpdate.Email = request.Email;
             Account account = await _accountRepositoryAsync.UpdateAsync(accountToUpdate);
             AccountDto result = new(account);
             return new UpdateAccountResponse(result);
-
         }
     }
 }

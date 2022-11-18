@@ -2,14 +2,14 @@
 
 namespace CleanOrders.Application.Dtos.Accounts
 {
-    public class CreateAccountResponse
+    public class DeleteAccountResponse
     {
-        public CreateAccountResponse(AccountDto account)
+        public DeleteAccountResponse(AccountDto account)
         {
             Data = account;
         }
 
-        public CreateAccountResponse(string message)
+        public DeleteAccountResponse(string message)
         {
             Status = "error";
             Message = message;

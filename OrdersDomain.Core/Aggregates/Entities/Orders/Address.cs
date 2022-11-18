@@ -11,7 +11,7 @@ namespace OrdersDomain.Core.Aggregates.Entities.Orders
         public Country Country { get; set; }
         public string City { get; set; }
         public State State { get; set; }
-        public int PostalCode { get; set; }
-        public DateTime DateModified { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string PostalCode { get; set; }
+        public DateTime DateModified { get; set; }
     }
 }

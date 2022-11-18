@@ -31,7 +31,17 @@ namespace CleanOrders.Application.Handlers.Accounts
                 return new CreateAccountResponse("An account for that address already exists");
             }
 
-            Account account = new(request.Name, request.Email, request.Password);
+            Account account = new(
+                request.Name,
+                request.Email,
+                request.Password,
+                request.StreetAddress1,
+                request.StreetAddress2,
+                request.Country,
+                request.City,
+                request.State,
+                request.PostalCode
+            );
             await _accountRepositoryAsync.AddAsync(account);
             AccountDto newAccount = new(account);
             return new CreateAccountResponse(newAccount);

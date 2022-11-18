@@ -33,8 +33,16 @@ namespace CleanOrders.Application.Handlers.Accounts
             {
                 return new UpdateAccountResponse("An account for that address already exists");
             }
+
             accountToUpdate.Name = request.Name;
             accountToUpdate.Email = request.Email;
+            accountToUpdate.StreetAddress1 = request.StreetAddress1;
+            accountToUpdate.StreetAddress2 = request.StreetAddress2;
+            accountToUpdate.City = request.City;
+            accountToUpdate.Country = request.Country;
+            accountToUpdate.State = request.State;
+            accountToUpdate.PostalCode = request.PostalCode;
+
             Account account = await _accountRepositoryAsync.UpdateAsync(accountToUpdate);
             AccountDto result = new(account);
             return new UpdateAccountResponse(result);

@@ -4,7 +4,7 @@ namespace OrdersDomain.Core.Enums
 {
     public class RoleEnums
     {
-        public enum Roles
+        public enum Role
         {
             [Description("51930dd018db4df28430d78ce64a23c8")]
             Super,

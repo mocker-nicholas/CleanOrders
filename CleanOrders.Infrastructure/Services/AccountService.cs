@@ -1,8 +1,6 @@
-﻿using CleanOrders.Application.Interfaces;
-
-namespace CleanOrders.Infrastructure.Services
+﻿namespace CleanOrders.Infrastructure.Services
 {
-    public class AccountService : IAccountService
+    public class AccountService
     {
     }
 }

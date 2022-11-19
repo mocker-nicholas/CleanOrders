@@ -8,7 +8,6 @@ namespace CleanOrders.Application.Commands.Accounts
     {
         public string BusinessName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public string StreetAddress1 { get; set; }
         public string StreetAddress2 { get; set; }
         public Country Country { get; set; }

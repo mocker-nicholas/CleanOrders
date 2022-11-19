@@ -154,7 +154,7 @@ namespace CleanOrders.Infrastructure.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("OrdersDomain.Core.Aggregates.Entities.Users.User", b =>

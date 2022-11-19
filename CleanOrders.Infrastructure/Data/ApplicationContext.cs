@@ -25,13 +25,18 @@ namespace CleanOrders.Infrastructure.Data
         {
             base.OnModelCreating(builder);
             builder.Entity<OrderAddress>()
-                .Property(address => address.Country)
-                .HasConversion<string>();
+            .Property(address => address.Country)
+               .HasConversion<string>();
             builder.Entity<OrderAddress>()
             .Property(address => address.State)
                .HasConversion<string>();
+            builder.Entity<User>()
+            .Property(user => user.RoleId)
+                .HasConversion<string>();
             builder.Entity<Permissions>().HasNoKey();
         }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Permissions> Permissions { get; set; }
     }
 }

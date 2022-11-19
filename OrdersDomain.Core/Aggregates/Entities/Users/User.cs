@@ -1,5 +1,6 @@
 ﻿using OrdersDomain.Core.Aggregates.Entities.Bases;
 using System.ComponentModel.DataAnnotations;
+using static OrdersDomain.Core.Enums.RoleEnums;
 
 namespace OrdersDomain.Core.Aggregates.Entities.Users
 {
@@ -11,7 +12,7 @@ namespace OrdersDomain.Core.Aggregates.Entities.Users
         [Required]
         public string Password { get; set; }
         [Required]
-        public string RoleId { get; set; }
+        public Role RoleId { get; set; }
         public bool IsDeleted { get; set; } = false;
     }
 }

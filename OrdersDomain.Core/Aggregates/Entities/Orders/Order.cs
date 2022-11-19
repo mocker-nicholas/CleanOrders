@@ -10,9 +10,9 @@ namespace OrdersDomain.Core.Aggregates.Entities.Orders
         public DateTime DateCreated { get; set; }
         // Why does intellisense trow exceptions
         public DateTime DateModified { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public Address PayableToAddress { get; set; }
-        public Address PayeeAddress { get; set; }
-        public Address ShipToAddress { get; set; }
+        public OrderAddress PayableToAddress { get; set; }
+        public OrderAddress PayeeAddress { get; set; }
+        public OrderAddress ShipToAddress { get; set; }
         public List<LineItem> LineItems { get; set; }
     }
 }

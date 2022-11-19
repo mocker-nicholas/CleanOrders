@@ -32,9 +32,8 @@ namespace CleanOrders.Application.Handlers.Accounts
             }
 
             Account account = new(
-                request.Name,
+                request.BusinessName,
                 request.Email,
-                request.Password,
                 request.StreetAddress1,
                 request.StreetAddress2,
                 request.Country,

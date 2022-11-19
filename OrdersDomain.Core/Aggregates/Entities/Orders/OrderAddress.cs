@@ -4,7 +4,7 @@ using static OrdersDomain.Core.Enums.AddressEnums;
 
 namespace OrdersDomain.Core.Aggregates.Entities.Orders
 {
-    public class Address : BaseEntity, IAuditable
+    public class OrderAddress : BaseEntity, IAuditable
     {
         public string StreetAddress1 { get; set; }
         public string StreetAddress2 { get; set; }

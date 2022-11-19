@@ -7,7 +7,7 @@ namespace CleanOrders.Application.Commands.Accounts
     public partial class UpdateAccountCommand : IRequest<UpdateAccountResponse>
     {
         public string Id { get; set; }
-        public string Name { get; set; }
+        public string BusinessName { get; set; }
         public string Email { get; set; }
         public string StreetAddress1 { get; set; }
         public string StreetAddress2 { get; set; }

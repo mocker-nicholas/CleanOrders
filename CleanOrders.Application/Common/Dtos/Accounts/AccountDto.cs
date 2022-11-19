@@ -8,7 +8,7 @@ namespace CleanOrders.Application.Common.Dtos.Accounts
     {
         public AccountDto(Account account)
         {
-            Name = account.Name;
+            Name = account.BusinessName;
             Email = account.Email;
             DateCreated = account.DateCreated;
             DateModified = account.DateModified;

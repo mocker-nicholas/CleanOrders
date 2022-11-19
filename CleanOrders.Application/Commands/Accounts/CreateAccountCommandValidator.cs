@@ -6,7 +6,7 @@ namespace CleanOrders.Application.Commands.Accounts
     {
         public CreateAccountCommandValidator()
         {
-            RuleFor(CreateAccountCommand => CreateAccountCommand.Name)
+            RuleFor(CreateAccountCommand => CreateAccountCommand.BusinessName)
                 .NotEmpty()
                  .MinimumLength(4)
                 .MaximumLength(100)

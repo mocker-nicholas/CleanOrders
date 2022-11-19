@@ -6,7 +6,7 @@ namespace CleanOrders.Application.Commands.Accounts
     {
         public UpdateAccountCommandValidator()
         {
-            RuleFor(UpdateAccountCommand => UpdateAccountCommand.Name)
+            RuleFor(UpdateAccountCommand => UpdateAccountCommand.BusinessName)
                 .NotEmpty()
                  .MinimumLength(4)
                 .MaximumLength(100)

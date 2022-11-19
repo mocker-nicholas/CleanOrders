@@ -23,6 +23,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(CreateAccountCommand).Assembly);
 builder.Services.AddScoped<IAccountRepositoryAsync, AccountRepository>();
+builder.Services.AddScoped<IUserRepositoryAsync, UsersRepository>();
 builder.Services.AddControllers().AddJsonOptions(options =>
 { options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
 

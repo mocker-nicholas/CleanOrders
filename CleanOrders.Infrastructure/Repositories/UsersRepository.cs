@@ -1,22 +1,28 @@
-﻿using CleanOrders.Application.Interfaces;
+﻿using CleanOrders.Application.Interfaces.Repositories;
+using CleanOrders.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using OrdersDomain.Core.Aggregates.Entities.Users;
 
 namespace CleanOrders.Infrastructure.Repositories
 {
-    public class UsersRepository : IGenericRepositoryAsync<User>
+    public class UsersRepository : IUserRepositoryAsync
     {
-        private readonly DbContext _context;
+        private readonly ApplicationContext _context;
+
+        public UsersRepository(ApplicationContext context)
+        {
+            _context = context;
+        }
         public async Task<User> AddAsync(User user)
         {
             try
             {
-                //await _context.Users.AddAsync(user);
+                await _context.Users.AddAsync(user);
                 await _context.SaveChangesAsync();
             }
             catch
             {
-                throw new Exception("Error adding account");
+                throw new Exception("Error adding User");
             }
             return user;
         }
@@ -39,6 +45,13 @@ namespace CleanOrders.Infrastructure.Repositories
         public Task<User> UpdateAsync(User entity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<bool> EmailIsUnique(string email)
+        {
+            List<User> users = await _context.Users.Where(x => x.Email == email).ToListAsync();
+            bool result = users.Count == 0;
+            return result;
         }
     }
 }

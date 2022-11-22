@@ -1,12 +1,13 @@
-﻿using OrdersDomain.Core.Aggregates.Entities.Accounts;
+﻿using CleanOrders.Application.Common.Dtos.Users;
+using OrdersDomain.Core.Aggregates.Entities.Accounts;
 using OrdersDomain.Core.Aggregates.Entities.Bases;
 using static OrdersDomain.Core.Enums.AddressEnums;
 
 namespace CleanOrders.Application.Common.Dtos.Accounts
 {
-    public class AccountDto : BaseEntity
+    public class AccountUsersDto : BaseEntity
     {
-        public AccountDto(Account account)
+        public AccountUsersDto(Account account, List<UserDto> users)
         {
             BusinessName = account.BusinessName;
             Email = account.Email;
@@ -19,6 +20,7 @@ namespace CleanOrders.Application.Common.Dtos.Accounts
             City = account.City;
             State = account.State;
             PostalCode = account.PostalCode;
+            Users = users;
         }
         public string BusinessName { get; set; }
         public string Email { get; set; }
@@ -30,5 +32,6 @@ namespace CleanOrders.Application.Common.Dtos.Accounts
         public string PostalCode { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
+        public List<UserDto> Users { get; set; }
     }
 }

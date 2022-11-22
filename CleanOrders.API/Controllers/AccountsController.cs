@@ -1,5 +1,6 @@
 ﻿using CleanOrders.Application.Commands.Accounts;
 using CleanOrders.Application.Queries.Accounts;
+using CleanOrders.Infrastructure.Data;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +11,11 @@ namespace CleanOrders.API.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public AccountsController(IMediator mediator)
+        private readonly ApplicationContext _context;
+        public AccountsController(IMediator mediator, ApplicationContext context)
         {
             _mediator = mediator;
+            _context = context;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllAccounts()
@@ -24,6 +27,8 @@ namespace CleanOrders.API.Controllers
         public async Task<IActionResult> GetAccountById(string Id)
         {
             return Ok(await _mediator.Send(new GetAccountByIdQuery(Id)));
+            //var result = _context.Accounts.Where(x => x.Id == Id).Include(x => x.Users);
+            //return Ok(result);
         }
 
         [HttpPost]

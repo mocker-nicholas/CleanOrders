@@ -28,6 +28,19 @@ namespace OrdersDomain.Core.Aggregates.Entities.Accounts
             PostalCode = postalCode;
         }
 
+        public Account(Account account)
+        {
+            BusinessName = account.BusinessName;
+            Email = account.Email;
+            StreetAddress1 = account.StreetAddress1;
+            StreetAddress2 = account.StreetAddress2;
+            Country = account.Country;
+            City = account.City;
+            State = account.State;
+            PostalCode = account.PostalCode;
+            Users = account.Users;
+        }
+
         public string BusinessName { get; set; }
         public string Email { get; set; }
         public string StreetAddress1 { get; set; }

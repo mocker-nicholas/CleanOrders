@@ -53,8 +53,9 @@ namespace CleanOrders.Infrastructure.Repositories
 
         public async Task<Account> GetByIdAsync(string id)
         {
-            Account? account = await _context.Accounts.FindAsync(id);
-            return account;
+            //Account? account = await _context.Accounts.FindAsync(id);
+            IQueryable<Account> account = _context.Accounts.Where(a => a.Id == id).Include(a => a.Users);
+            return account.First();
         }
 
         public Task<IReadOnlyList<Account>> GetPagedReponseAsync(int pageNumber, int pageSize)

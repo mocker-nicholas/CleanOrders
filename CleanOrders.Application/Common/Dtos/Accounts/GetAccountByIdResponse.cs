@@ -2,7 +2,7 @@
 {
     public class GetAccountByIdResponse
     {
-        public GetAccountByIdResponse(AccountDto account)
+        public GetAccountByIdResponse(AccountUsersDto account)
         {
             Data = account;
         }
@@ -16,6 +16,6 @@
 
         public string Status { get; set; } = "success";
         public string Message { get; set; } = "success";
-        public AccountDto Data { get; set; }
+        public AccountUsersDto Data { get; set; }
     }
 }

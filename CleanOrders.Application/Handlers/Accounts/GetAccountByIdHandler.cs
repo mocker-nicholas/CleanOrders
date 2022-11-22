@@ -1,4 +1,5 @@
 ﻿using CleanOrders.Application.Common.Dtos.Accounts;
+using CleanOrders.Application.Common.Dtos.Users;
 using CleanOrders.Application.Interfaces.Repositories;
 using CleanOrders.Application.Queries.Accounts;
 using MediatR;
@@ -21,7 +22,13 @@ namespace CleanOrders.Application.Handlers.Accounts
             {
                 return new GetAccountByIdResponse("No account was found");
             }
-            AccountDto result = new(account);
+            List<UserDto> users = new List<UserDto>();
+            foreach (var user in account.Users)
+            {
+                var dto = new UserDto(user);
+                users.Add(dto);
+            }
+            AccountUsersDto result = new(account, users);
             return new GetAccountByIdResponse(result);
         }
     }

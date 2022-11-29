@@ -41,6 +41,7 @@ namespace CleanOrders.API.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Email),
+                new Claim(ClaimTypes.Actor, user.AccountId),
                 new Claim(ClaimTypes.Role, user.RoleId.ToString()),
             };
             var token = new JwtSecurityToken(
@@ -63,6 +64,22 @@ namespace CleanOrders.API.Controllers
                 return null;
             }
             return user;
+        }
+
+        private LoggedInUser GetCurrentUser()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                var userClaims = identity.Claims;
+                return new LoggedInUser
+                (
+                    userClaims.FirstOrDefault(u => u.Type == ClaimTypes.Actor).Value,
+                    userClaims.FirstOrDefault(u => u.Type == ClaimTypes.NameIdentifier).Value,
+                    userClaims.FirstOrDefault(u => u.Type == ClaimTypes.Role).Value
+                );
+            }
+            return null;
         }
     }
 }

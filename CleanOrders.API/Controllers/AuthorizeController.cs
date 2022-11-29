@@ -47,11 +47,12 @@ namespace CleanOrders.API.Controllers
                 _configuration["Jwt:Issuer"],
                 _configuration["Jwt:Audience"],
                 claims,
-                notBefore: DateTime.Now.AddMinutes(60),
+                notBefore: DateTime.Now,
                 expires: DateTime.Now.AddMinutes(60),
                 signingCredentials: credentials
            );
 
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
         private User Authenticate(UserLogin userLogin)

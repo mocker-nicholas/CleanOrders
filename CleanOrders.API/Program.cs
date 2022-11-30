@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -18,6 +19,13 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection"),
         b => b.MigrationsAssembly("CleanOrders.Infrastructure")
     );
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Super", policy => policy.RequireClaim(ClaimTypes.Role, "Super"));
+    options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
+    options.AddPolicy("Standard", policy => policy.RequireClaim(ClaimTypes.Role, "Standard"));
 });
 
 builder.Services.AddControllers();

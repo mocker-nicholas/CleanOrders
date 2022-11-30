@@ -41,7 +41,7 @@ namespace CleanOrders.API.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Email),
-                new Claim(ClaimTypes.Actor, user.AccountId),
+                new Claim(ClaimTypes.Actor, user.Id),
                 new Claim(ClaimTypes.Role, user.RoleId.ToString()),
             };
             var token = new JwtSecurityToken(

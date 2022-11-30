@@ -7,11 +7,11 @@ namespace CleanOrders.Application.Common.Dtos.Users
     {
         public UserDto(User user)
         {
-            AccountId = user.AccountId;
+            Id = user.Id;
             Email = user.Email;
             RoleId = user.RoleId;
         }
-        public string AccountId { get; set; }
+        public string Id { get; set; }
         public string Email { get; set; }
         public Role RoleId { get; set; }
     }

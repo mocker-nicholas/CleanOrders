@@ -26,6 +26,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Super", policy => policy.RequireClaim(ClaimTypes.Role, "Super"));
     options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
     options.AddPolicy("Standard", policy => policy.RequireClaim(ClaimTypes.Role, "Standard"));
+    // Permissions are going to be custom claims on the JWT
 });
 
 builder.Services.AddControllers();
@@ -35,6 +36,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(CreateAccountCommand).Assembly);
 builder.Services.AddScoped<IAccountRepositoryAsync, AccountRepository>();
 builder.Services.AddScoped<IUserRepositoryAsync, UsersRepository>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters

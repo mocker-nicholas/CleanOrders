@@ -1,4 +1,6 @@
+using CleanOrders.API.Authorization;
 using CleanOrders.Application.Commands.Accounts;
+using CleanOrders.Application.Interfaces;
 using CleanOrders.Application.Interfaces.Repositories;
 using CleanOrders.Infrastructure.Data;
 using CleanOrders.Infrastructure.Repositories;
@@ -37,6 +39,7 @@ builder.Services.AddMediatR(typeof(CreateAccountCommand).Assembly);
 builder.Services.AddScoped<IAccountRepositoryAsync, AccountRepository>();
 builder.Services.AddScoped<IUserRepositoryAsync, UsersRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters

@@ -22,7 +22,7 @@ namespace CleanOrders.API.Controllers
         }
 
         [HttpGet("/check")]
-        [Authorize(Policy = "Super")]
+        [Authorize(Policy = "SuperAndAdmin")]
         public async Task<IActionResult> Test()
         {
             return Ok("Hey you got me!");

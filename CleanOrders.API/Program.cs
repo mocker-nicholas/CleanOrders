@@ -1,4 +1,5 @@
 using CleanOrders.API.Authorization;
+using CleanOrders.API.Middleware;
 using CleanOrders.Application.Commands.Accounts;
 using CleanOrders.Application.Interfaces;
 using CleanOrders.Application.Interfaces.Repositories;
@@ -28,6 +29,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Super", policy => policy.RequireClaim(ClaimTypes.Role, "Super"));
     options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
     options.AddPolicy("Standard", policy => policy.RequireClaim(ClaimTypes.Role, "Standard"));
+    options.AddPolicy("SuperAndAdmin", policy => policy.RequireClaim(ClaimTypes.Role, "Super", "Admin"));
     // Permissions are going to be custom claims on the JWT
 });
 
@@ -38,8 +40,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(CreateAccountCommand).Assembly);
 builder.Services.AddScoped<IAccountRepositoryAsync, AccountRepository>();
 builder.Services.AddScoped<IUserRepositoryAsync, UsersRepository>();
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
@@ -66,6 +68,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthorizationMiddleware();
 
 app.UseAuthentication();
 

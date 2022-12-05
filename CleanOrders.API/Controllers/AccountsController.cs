@@ -2,6 +2,7 @@
 using CleanOrders.Application.Queries.Accounts;
 using CleanOrders.Infrastructure.Data;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanOrders.API.Controllers
@@ -18,26 +19,28 @@ namespace CleanOrders.API.Controllers
             _context = context;
         }
         [HttpGet]
+        [Authorize(Policy = "Super")]
         public async Task<IActionResult> GetAllAccounts()
         {
             return Ok(await _mediator.Send(new GetAllAccountsQuery()));
         }
 
         [HttpGet("{id}")]
+        [Authorize(Policy = "Super")]
         public async Task<IActionResult> GetAccountById(string Id)
         {
             return Ok(await _mediator.Send(new GetAccountByIdQuery(Id)));
-            //var result = _context.Accounts.Where(x => x.Id == Id).Include(x => x.Users);
-            //return Ok(result);
         }
 
         [HttpPost]
+        [Authorize(Policy = "Super")]
         public async Task<IActionResult> CreateAccount(CreateAccountCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy = "Super")]
         public async Task<IActionResult> UpdateAccount(string id, UpdateAccountCommand command)
         {
             if (id != command.Id)
@@ -48,6 +51,7 @@ namespace CleanOrders.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "Super")]
         public async Task<IActionResult> DeleteAccount(string id)
         {
             return Ok(await _mediator.Send(new DeleteAccountCommand { Id = id }));

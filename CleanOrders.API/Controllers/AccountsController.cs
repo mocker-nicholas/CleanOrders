@@ -54,7 +54,7 @@ namespace CleanOrders.API.Controllers
         [Authorize(Policy = "Super")]
         public async Task<IActionResult> DeleteAccount(string id)
         {
-            return Ok(await _mediator.Send(new DeleteAccountCommand { Id = id }));
+            return Ok(await _mediator.Send(new DeleteAccountCommand(id)));
         }
     }
 }

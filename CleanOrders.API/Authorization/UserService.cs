@@ -29,7 +29,7 @@ namespace CleanOrders.API.Authorization
                 var userClaims = identity.Claims;
                 return new LoggedInUser
                 (
-                    userClaims.FirstOrDefault(u => u.Type == ClaimTypes.Sid).Value,
+                    userClaims.FirstOrDefault(u => u.Type == "account").Value,
                     userClaims.FirstOrDefault(u => u.Type == ClaimTypes.Actor).Value,
                     userClaims.FirstOrDefault(u => u.Type == ClaimTypes.NameIdentifier).Value,
                     userClaims.FirstOrDefault(u => u.Type == ClaimTypes.Role).Value

@@ -1,7 +1,9 @@
 ﻿using CleanOrders.Application.Commands.Users;
+using CleanOrders.Application.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OrdersDomain.Core.Aggregates.Entities.Users;
 
 namespace CleanOrders.API.Controllers
 {
@@ -10,9 +12,11 @@ namespace CleanOrders.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public UsersController(IMediator mediator)
+        private readonly IUserService _userService;
+        public UsersController(IMediator mediator, IUserService userService)
         {
             _mediator = mediator;
+            _userService = userService;
         }
 
         [HttpPost]
@@ -21,11 +25,12 @@ namespace CleanOrders.API.Controllers
             return Ok(await _mediator.Send(command));
         }
 
-        [HttpGet("/check")]
-        [Authorize(Policy = "SuperAndAdmin")]
-        public async Task<IActionResult> Test()
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetAllUsers()
         {
-            return Ok("Hey you got me!");
+            LoggedInUser user = _userService.GetCurrentUser();
+            return Ok(user);
         }
     }
 }

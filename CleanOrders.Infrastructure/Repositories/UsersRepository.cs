@@ -1,4 +1,5 @@
-﻿using CleanOrders.Application.Interfaces.Repositories;
+﻿using CleanOrders.Application.Common.Dtos.Users;
+using CleanOrders.Application.Interfaces.Repositories;
 using CleanOrders.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using OrdersDomain.Core.Aggregates.Entities.Users;
@@ -26,25 +27,23 @@ namespace CleanOrders.Infrastructure.Repositories
             }
             return user;
         }
-
-        public Task<IReadOnlyList<User>> GetAllAsync()
+        public async Task<List<UserDto>> GetAllAsync(string AccountId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<User> GetByIdAsync(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IReadOnlyList<User>> GetPagedReponseAsync(int pageNumber, int pageSize)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<User> UpdateAsync(User entity)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                List<User> users = await _context.Users.Where(u => u.AccountId == AccountId).ToListAsync();
+                List<UserDto> result = new();
+                foreach (var user in users)
+                {
+                    var dto = new UserDto(user);
+                    result.Add(dto);
+                }
+                return result;
+            }
+            catch
+            {
+                throw new Exception("Error fetching Users");
+            }
         }
 
         public async Task<bool> EmailIsUnique(string email)

@@ -1,5 +1,6 @@
 ﻿using CleanOrders.Application.Commands.Users;
 using CleanOrders.Application.Interfaces;
+using CleanOrders.Application.Queries.Accounts;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,7 @@ namespace CleanOrders.API.Controllers
         public async Task<IActionResult> GetAllUsers()
         {
             LoggedInUser user = _userService.GetCurrentUser();
-            return Ok(user);
+            return Ok(await _mediator.Send(new GetAllUsersQuery(user.AccountId)));
         }
     }
 }

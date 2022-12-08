@@ -33,5 +33,12 @@ namespace CleanOrders.API.Controllers
             LoggedInUser user = _userService.GetCurrentUser();
             return Ok(await _mediator.Send(new GetAllUsersQuery(user.AccountId)));
         }
+
+        [HttpPut("{id}")]
+        [Authorize(Policy = "SuperAndAdmin")]
+        public async Task<IActionResult> UpdateUser(UpdateUserCommand command)
+        {
+            return Ok(await _mediator.Send(command));
+        }
     }
 }

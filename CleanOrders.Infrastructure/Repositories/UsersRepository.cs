@@ -46,6 +46,16 @@ namespace CleanOrders.Infrastructure.Repositories
             }
         }
 
+        public async Task<User> UpdateAsync(UserDto user)
+        {
+            return null;
+        }
+
+        public async Task<User> GetByIdAsync(string id)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
         public async Task<bool> EmailIsUnique(string email)
         {
             List<User> users = await _context.Users.Where(x => x.Email == email).ToListAsync();

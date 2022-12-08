@@ -7,6 +7,8 @@ namespace CleanOrders.Application.Interfaces.Repositories
     {
         Task<User> AddAsync(User user);
         Task<List<UserDto>> GetAllAsync(string AccountId);
+        Task<User> UpdateAsync(UserDto User);
+        Task<User> GetByIdAsync(string UserId);
         Task<bool> EmailIsUnique(string email);
     }
 }

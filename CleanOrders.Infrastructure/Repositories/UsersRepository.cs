@@ -46,9 +46,18 @@ namespace CleanOrders.Infrastructure.Repositories
             }
         }
 
-        public async Task<User> UpdateAsync(UserDto user)
+        public async Task<User> UpdateAsync(User user)
         {
-            return null;
+            try
+            {
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                throw new Exception("Error updating User");
+            }
+            return user;
         }
 
         public async Task<User> GetByIdAsync(string id)

@@ -12,9 +12,9 @@ namespace CleanOrders.API.Middleware
 
         public async Task InvokeAsync(HttpContext context)
         {
+
             await _next(context);
-            // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/write?view=aspnetcore-7.0
-            // Why is next called first in my middleware?
+
             if (context.Response.StatusCode == (int)HttpStatusCode.Forbidden)
             {
                 await context.Response.WriteAsync("Forbidden");

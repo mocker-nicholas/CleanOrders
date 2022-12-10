@@ -7,11 +7,21 @@ namespace CleanOrders.Application.Commands.Users
 {
     public class UpdateUserCommand : IRequest<UpdateUserResponse>
     {
+        public UpdateUserCommand(string userId, string email, Role roleId)
+        {
+            if (userId.Length > 100)
+                throw new ArgumentException("your name is too long yo");
+
+            Id = userId;
+            Email = email;
+            RoleId = roleId;
+        }
+
         [Required]
-        public string Id { get; set; }
+        public string Id { get; private set; }
         [Required]
-        public string Email { get; set; }
+        public string Email { get; private set; }
         [Required]
-        public Role RoleId { get; set; }
+        public Role RoleId { get; private set; }
     }
 }

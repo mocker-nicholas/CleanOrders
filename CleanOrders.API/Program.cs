@@ -69,6 +69,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Before next happens in order of invokation, after next happens in order of invokation, but in reverse
+// https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-7.0#create-a-middleware-pipeline-with-webapplication
+
 app.UseAuthorizationMiddleware();
 
 app.UseAuthentication();
@@ -78,3 +81,15 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// To Do
+// Add in some Validation to class constructors
+// Think about your property types and contructors. What really should be accessible, and what shouldnt?
+// Throw exceptions for errors you cant do anything about. Birth date as user id? Exception
+// Add a middleware for Global exception handling
+// Polish what you have
+//	- Delete a user
+//	- Add fluent validations for all endpoints
+//	- Start using policies to dictate who does what
+//	- Test everything for bugs
+//	- Where is your database at? Does it need to be updated?

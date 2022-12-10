@@ -34,10 +34,13 @@ namespace CleanOrders.API.Controllers
             return Ok(await _mediator.Send(new GetAllUsersQuery(user.AccountId)));
         }
 
+        //public async Task UpdateUser([FromUri] string id, [FromBody] UpdateUserDto dto)
+
         [HttpPut("{id}")]
         [Authorize(Policy = "SuperAndAdmin")]
         public async Task<IActionResult> UpdateUser(UpdateUserCommand command)
         {
+            // Create a new DTO and pass that into the api, generate the command with that information
             return Ok(await _mediator.Send(command));
         }
     }

@@ -29,6 +29,7 @@ namespace CleanOrders.API.Authorization
                 var userClaims = identity.Claims;
                 return new LoggedInUser
                 (
+                    // Change to JwtRegisteredClaimNames
                     userClaims.FirstOrDefault(u => u.Type == "account").Value,
                     userClaims.FirstOrDefault(u => u.Type == ClaimTypes.Actor).Value,
                     userClaims.FirstOrDefault(u => u.Type == ClaimTypes.NameIdentifier).Value,

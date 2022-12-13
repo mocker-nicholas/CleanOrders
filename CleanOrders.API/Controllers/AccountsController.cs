@@ -1,4 +1,5 @@
-﻿using CleanOrders.Application.Commands.Accounts;
+﻿using CleanOrders.API.ApiDtos.Accounts;
+using CleanOrders.Application.Commands.Accounts;
 using CleanOrders.Application.Queries.Accounts;
 using CleanOrders.Infrastructure.Data;
 using MediatR;
@@ -12,11 +13,9 @@ namespace CleanOrders.API.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly ApplicationContext _context;
         public AccountsController(IMediator mediator, ApplicationContext context)
         {
             _mediator = mediator;
-            _context = context;
         }
         [HttpGet]
         [Authorize(Policy = "Super")]
@@ -41,12 +40,20 @@ namespace CleanOrders.API.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Policy = "Super")]
-        public async Task<IActionResult> UpdateAccount(string id, UpdateAccountCommand command)
+        public async Task<IActionResult> UpdateAccount(string id, ApiAccountDto request)
         {
-            if (id != command.Id)
-            {
-                return BadRequest();
-            }
+
+            UpdateAccountCommand command = new(
+                id,
+                request.BusinessName,
+                request.Email,
+                request.StreetAddress1,
+                request.StreetAddress2,
+                request.Country,
+                request.City,
+                request.State,
+                request.PostalCode
+            );
             return Ok(await _mediator.Send(command));
         }
 

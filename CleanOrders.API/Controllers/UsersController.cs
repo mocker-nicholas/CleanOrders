@@ -1,4 +1,5 @@
-﻿using CleanOrders.Application.Commands.Users;
+﻿using CleanOrders.API.ApiDtos.Users;
+using CleanOrders.Application.Commands.Users;
 using CleanOrders.Application.Interfaces;
 using CleanOrders.Application.Queries.Accounts;
 using MediatR;
@@ -38,9 +39,9 @@ namespace CleanOrders.API.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Policy = "SuperAndAdmin")]
-        public async Task<IActionResult> UpdateUser(UpdateUserCommand command)
+        public async Task<IActionResult> UpdateUser(ApiUserDto request, string id)
         {
-            // Create a new DTO and pass that into the api, generate the command with that information
+            UpdateUserCommand command = new(id, request.Email, request.RoleId);
             return Ok(await _mediator.Send(command));
         }
     }

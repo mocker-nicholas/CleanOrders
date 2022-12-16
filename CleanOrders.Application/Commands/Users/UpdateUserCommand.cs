@@ -9,9 +9,6 @@ namespace CleanOrders.Application.Commands.Users
     {
         public UpdateUserCommand(string userId, string email, Role roleId)
         {
-            if (userId.Length > 100)
-                throw new ArgumentException("your name is too long yo");
-
             Id = userId;
             Email = email;
             RoleId = roleId;

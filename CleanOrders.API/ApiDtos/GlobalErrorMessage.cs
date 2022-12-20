@@ -1,13 +1,17 @@
-﻿namespace CleanOrders.API.ApiDtos
+﻿using System.Text.Json.Serialization;
+
+namespace CleanOrders.API.ApiDtos
 {
     public class GlobalErrorMessage
     {
-        public GlobalErrorMessage(object data)
+        public GlobalErrorMessage(string data)
         {
-            Data = data;
+            Message = data;
         }
+
+        [JsonPropertyName("status")]
         public string Status { get; set; } = "error";
+        [JsonPropertyName("message")]
         public string Message { get; set; } = "error";
-        public object Data { get; set; }
     }
 }

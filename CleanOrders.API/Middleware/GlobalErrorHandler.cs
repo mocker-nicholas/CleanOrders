@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using CleanOrders.API.ApiDtos;
+using System.Net;
+using System.Text.Json;
 
 namespace CleanOrders.API.Middleware
 {
@@ -13,15 +15,23 @@ namespace CleanOrders.API.Middleware
 
         public async Task InvokeAsync(HttpContext context)
         {
-            await _next(context);
-
-            var exceptionHandlerPathFeature =
-           context.Features.Get<IExceptionHandlerPathFeature>();
-
-            if (context.Response.StatusCode == StatusCodes.Status500InternalServerError)
+            try
             {
-                await context.Response.WriteAsync(exceptionHandlerPathFeature.Error.ToString());
+                await _next(context);
             }
+            catch (Exception ex)
+            {
+                await HandleExceptionAsync(context, ex);
+            }
+        }
+
+        private static Task HandleExceptionAsync(HttpContext context, Exception ex)
+        {
+            var code = HttpStatusCode.InternalServerError;
+            var error = JsonSerializer.Serialize(new GlobalErrorMessage(ex.Message));
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)code;
+            return context.Response.WriteAsync(error);
         }
     }
     public static class GlobalErrorHandlerExtensions

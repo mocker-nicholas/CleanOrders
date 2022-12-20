@@ -35,8 +35,6 @@ namespace CleanOrders.API.Controllers
             return Ok(await _mediator.Send(new GetAllUsersQuery(user.AccountId)));
         }
 
-        //public async Task UpdateUser([FromUri] string id, [FromBody] UpdateUserDto dto)
-
         [HttpPut("{id}")]
         [Authorize(Policy = "SuperAndAdmin")]
         public async Task<IActionResult> UpdateUser(ApiUserDto request, string id)

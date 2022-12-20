@@ -22,7 +22,7 @@ namespace CleanOrders.Application.Handlers.Accounts
             {
                 return new GetAccountByIdResponse("No account was found");
             }
-            List<UserDto> users = new List<UserDto>();
+            List<UserDto> users = new();
             foreach (var user in account.Users)
             {
                 var dto = new UserDto(user);

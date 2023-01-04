@@ -21,12 +21,6 @@ namespace CleanOrders.API.Controllers
             _userService = userService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> RegisterUser(CreateUserCommand command)
-        {
-            return Ok(await _mediator.Send(command));
-        }
-
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetAllUsers()
@@ -40,6 +34,12 @@ namespace CleanOrders.API.Controllers
         public async Task<IActionResult> UpdateUser(ApiUserDto request, string id)
         {
             UpdateUserCommand command = new(id, request.Email, request.RoleId);
+            return Ok(await _mediator.Send(command));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterUser(CreateUserCommand command)
+        {
             return Ok(await _mediator.Send(command));
         }
     }

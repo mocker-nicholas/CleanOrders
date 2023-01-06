@@ -1,4 +1,5 @@
-﻿using CleanOrders.Application.Interfaces.Repositories;
+﻿using CleanOrders.Application.Common.Exceptions;
+using CleanOrders.Application.Interfaces.Repositories;
 using CleanOrders.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using OrdersDomain.Core.Aggregates.Entities.Accounts;
@@ -34,8 +35,12 @@ namespace CleanOrders.Infrastructure.Repositories
             {
                 _context.Accounts.Remove(account);
                 await _context.SaveChangesAsync();
+                return account;
             }
-            return account;
+            else
+            {
+                throw new NotFoundException(id);
+            };
         }
 
         public async Task<bool> EmailIsUnique(string email)
@@ -51,11 +56,11 @@ namespace CleanOrders.Infrastructure.Repositories
             return accounts;
         }
 
-        public async Task<Account> GetByIdAsync(string id)
+        public async Task<Account?> GetByIdAsync(string id)
         {
             //Account? account = await _context.Accounts.FindAsync(id);
             IQueryable<Account> account = _context.Accounts.Where(a => a.Id == id).Include(a => a.Users);
-            return account.First();
+            return account.FirstOrDefault();
         }
 
         public Task<IReadOnlyList<Account>> GetPagedReponseAsync(int pageNumber, int pageSize)

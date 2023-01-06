@@ -1,5 +1,6 @@
 ﻿using CleanOrders.Application.Common.Dtos.Accounts;
 using CleanOrders.Application.Common.Dtos.Users;
+using CleanOrders.Application.Common.Exceptions;
 using CleanOrders.Application.Interfaces.Repositories;
 using CleanOrders.Application.Queries.Accounts;
 using MediatR;
@@ -17,10 +18,10 @@ namespace CleanOrders.Application.Handlers.Accounts
         }
         public async Task<GetAccountByIdResponse> Handle(GetAccountByIdQuery request, CancellationToken cancellationToken)
         {
-            Account account = await _accountRepositoryAsync.GetByIdAsync(request.Id);
+            Account? account = await _accountRepositoryAsync.GetByIdAsync(request.Id);
             if (account == null)
             {
-                return new GetAccountByIdResponse("No account was found");
+                throw new NotFoundException(request.Id);
             }
             List<UserDto> users = new();
             foreach (var user in account.Users)

@@ -85,11 +85,11 @@ app.MapControllers();
 app.Run();
 
 // To Do
-// Add in some Validation to class constructors
 // Add Meta Data into your database. Add models with Metadata properties
 // Think about your property types and contructors. What really should be accessible, and what shouldnt?
 // Throw exceptions for errors you cant do anything about. Birth date as user id? Exception
 // Add a middleware or filter for Global exception handling
+// Get rid of generic responses of 200 with an error message. Return the appropriate response code.
 // Polish what you have
 //	- Delete a user
 //	- Add fluent validations for all endpoints

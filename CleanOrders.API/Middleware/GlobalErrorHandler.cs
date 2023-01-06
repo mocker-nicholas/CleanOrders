@@ -1,5 +1,4 @@
 ﻿using CleanOrders.API.ApiDtos;
-using System.Net;
 using System.Text.Json;
 
 namespace CleanOrders.API.Middleware
@@ -27,10 +26,14 @@ namespace CleanOrders.API.Middleware
 
         private static Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            var code = HttpStatusCode.InternalServerError;
+            if (ex.Message.Contains("not found"))
+                context.Response.StatusCode = 404;
+            else
+            {
+                context.Response.StatusCode = 500;
+            }
             var error = JsonSerializer.Serialize(new GlobalErrorMessage(ex.Message));
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)code;
             return context.Response.WriteAsync(error);
         }
     }

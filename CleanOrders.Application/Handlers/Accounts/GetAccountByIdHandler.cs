@@ -23,14 +23,21 @@ namespace CleanOrders.Application.Handlers.Accounts
             {
                 throw new NotFoundException(request.Id);
             }
-            List<UserDto> users = new();
-            foreach (var user in account.Users)
+            if (request.User.RoleId == "Super" || request.User.AccountId == account.Id)
             {
-                var dto = new UserDto(user);
-                users.Add(dto);
+                List<UserDto> users = new();
+                foreach (var user in account.Users)
+                {
+                    var dto = new UserDto(user);
+                    users.Add(dto);
+                }
+                AccountUsersDto result = new(account, users);
+                return new GetAccountByIdResponse(result);
             }
-            AccountUsersDto result = new(account, users);
-            return new GetAccountByIdResponse(result);
+            else
+            {
+                throw new NotFoundException(request.Id);
+            }
         }
     }
 }

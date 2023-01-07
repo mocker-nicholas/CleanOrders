@@ -1,9 +1,11 @@
 ﻿using CleanOrders.API.ApiDtos.Accounts;
 using CleanOrders.Application.Commands.Accounts;
+using CleanOrders.Application.Interfaces;
 using CleanOrders.Application.Queries.Accounts;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OrdersDomain.Core.Aggregates.Entities.Users;
 
 namespace CleanOrders.API.Controllers
 {
@@ -12,9 +14,11 @@ namespace CleanOrders.API.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public AccountsController(IMediator mediator)
+        private readonly IUserService _userService;
+        public AccountsController(IMediator mediator, IUserService userService)
         {
             _mediator = mediator;
+            _userService = userService;
         }
         [HttpGet]
         [Authorize(Policy = "Super")]
@@ -24,10 +28,11 @@ namespace CleanOrders.API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Policy = "Super")]
+        [Authorize(Policy = "AllUsers")]
         public async Task<IActionResult> GetAccountById(string Id)
         {
-            return Ok(await _mediator.Send(new GetAccountByIdQuery(Id)));
+            LoggedInUser user = _userService.GetCurrentUser();
+            return Ok(await _mediator.Send(new GetAccountByIdQuery(Id, user)));
         }
 
         [HttpPost]

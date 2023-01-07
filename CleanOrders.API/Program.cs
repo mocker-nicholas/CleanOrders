@@ -30,6 +30,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
     options.AddPolicy("Standard", policy => policy.RequireClaim(ClaimTypes.Role, "Standard"));
     options.AddPolicy("SuperAndAdmin", policy => policy.RequireClaim(ClaimTypes.Role, "Super", "Admin"));
+    options.AddPolicy("AllUsers", policy => policy.RequireClaim(ClaimTypes.Role, "Super", "Admin", "Standard"));
     // Permissions are going to be custom claims on the JWT
 });
 

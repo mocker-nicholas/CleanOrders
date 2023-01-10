@@ -28,11 +28,13 @@ namespace CleanOrders.API.Middleware
         {
             if (ex.Message.Contains("not found"))
                 context.Response.StatusCode = 404;
+            else if (ex.Message.Contains("already"))
+                context.Response.StatusCode = 409;
             else
             {
                 context.Response.StatusCode = 500;
             }
-            var error = JsonSerializer.Serialize(new GlobalErrorMessage(ex.Message));
+            string error = JsonSerializer.Serialize(new GlobalErrorMessage(ex.Message));
             context.Response.ContentType = "application/json";
             return context.Response.WriteAsync(error);
         }

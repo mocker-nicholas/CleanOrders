@@ -8,6 +8,6 @@
 
         }
 
-        public int StatusCode { get; set; } = 404;
+        public int StatusCode { get; } = 404;
     }
 }

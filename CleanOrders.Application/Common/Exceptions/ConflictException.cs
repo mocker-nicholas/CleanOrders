@@ -7,6 +7,6 @@
 
         }
 
-        public int StatusCode { get; set; } = 409;
+        public int StatusCode { get; } = 409;
     }
 }

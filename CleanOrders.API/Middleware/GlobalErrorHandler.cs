@@ -1,4 +1,5 @@
 ﻿using CleanOrders.API.ApiDtos;
+using CleanOrders.Application.Common.Exceptions;
 using System.Text.Json;
 
 namespace CleanOrders.API.Middleware
@@ -26,10 +27,12 @@ namespace CleanOrders.API.Middleware
 
         private static Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            if (ex.Message.Contains("not found"))
+            if (ex.InnerException is NotFoundException)
                 context.Response.StatusCode = 404;
-            else if (ex.Message.Contains("already"))
+            else if (ex.InnerException is ConflictException)
                 context.Response.StatusCode = 409;
+            else if (ex is ForbiddenException)
+                context.Response.StatusCode = 403;
             else
             {
                 context.Response.StatusCode = 500;

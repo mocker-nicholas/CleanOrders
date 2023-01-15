@@ -66,5 +66,11 @@ namespace CleanOrders.API.Controllers
         {
             return Ok(await _mediator.Send(new DeleteAccountCommand(id)));
         }
+
+        [HttpPost("{id}/Invoice")]
+        public async Task<IActionResult> CreateAnInvoice()
+        {
+            return Ok("Test");
+        }
     }
 }

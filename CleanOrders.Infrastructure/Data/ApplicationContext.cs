@@ -34,9 +34,15 @@ namespace CleanOrders.Infrastructure.Data
             .Property(user => user.RoleId)
                 .HasConversion<string>();
             builder.Entity<Permissions>().HasNoKey();
+
+
         }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Permissions> Permissions { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderAddress> OrderAddress { get; set; }
+        public DbSet<BusinessAddress> BusinessAddresses { get; set; }
+        public DbSet<LineItem> LineItems { get; set; }
     }
 }

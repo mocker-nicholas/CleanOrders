@@ -9,6 +9,6 @@ namespace CleanOrders.API.ApiDtos.Orders
         public DateTime DateCreated { get; set; }
         public OrderAddress BusinessAddress { get; set; }
         public OrderAddress ShippingAddress { get; set; }
-        public List<LineItem> LineItems { get; set; }
+        public IList<LineItem> LineItems { get; set; }
     }
 }

@@ -7,8 +7,8 @@ namespace CleanOrders.API.ApiDtos.Orders
         public string AccountId { get; set; }
         public decimal Total { get; set; }
         public DateTime DateCreated { get; set; }
-        public OrderAddress BusinessAddress { get; set; }
-        public OrderAddress ShippingAddress { get; set; }
+        public Address BusinessAddress { get; set; }
+        public Address ShippingAddress { get; set; }
         public IList<LineItem> LineItems { get; set; }
     }
 }

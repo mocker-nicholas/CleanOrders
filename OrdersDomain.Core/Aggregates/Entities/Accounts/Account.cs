@@ -1,4 +1,5 @@
 ﻿using OrdersDomain.Core.Aggregates.Entities.Bases;
+using OrdersDomain.Core.Aggregates.Entities.Orders;
 using OrdersDomain.Core.Aggregates.Entities.Users;
 using OrdersDomain.Core.Interfaces;
 using static OrdersDomain.Core.Enums.AddressEnums;
@@ -49,7 +50,9 @@ namespace OrdersDomain.Core.Aggregates.Entities.Accounts
         public string City { get; set; }
         public State State { get; set; }
         public string PostalCode { get; set; }
-        public List<User> Users { get; set; }
+        public IList<User> Users { get; set; }
+        // Represent as join table using modelbuilder
+        public IList<Address> Addresses { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public DateTime DateModified { get; set; } = DateTime.Now;
     }

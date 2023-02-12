@@ -1,4 +1,5 @@
-﻿using static OrdersDomain.Core.Enums.AddressEnums;
+﻿using OrdersDomain.Core.Aggregates.Entities.Orders;
+using static OrdersDomain.Core.Enums.AddressEnums;
 
 namespace CleanOrders.API.ApiDtos.Accounts
 {
@@ -12,5 +13,6 @@ namespace CleanOrders.API.ApiDtos.Accounts
         public string City { get; set; }
         public State State { get; set; }
         public string PostalCode { get; set; }
+        public IList<Address> BusinessAddresses { get; set; }
     }
 }

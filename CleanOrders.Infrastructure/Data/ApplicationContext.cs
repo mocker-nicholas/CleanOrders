@@ -24,10 +24,10 @@ namespace CleanOrders.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<OrderAddress>()
+            builder.Entity<Address>()
             .Property(address => address.Country)
                .HasConversion<string>();
-            builder.Entity<OrderAddress>()
+            builder.Entity<Address>()
             .Property(address => address.State)
                .HasConversion<string>();
             builder.Entity<User>()
@@ -35,13 +35,15 @@ namespace CleanOrders.Infrastructure.Data
                 .HasConversion<string>();
             builder.Entity<Permissions>().HasNoKey();
 
+            // Creates a join table for addresses and account
+            builder.Entity<Account>().HasMany(x => x.Addresses).WithOne();
 
         }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Permissions> Permissions { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderAddress> OrderAddress { get; set; }
+        public DbSet<Address> Address { get; set; }
         public DbSet<BusinessAddress> BusinessAddresses { get; set; }
         public DbSet<LineItem> LineItems { get; set; }
     }

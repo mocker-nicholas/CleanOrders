@@ -68,6 +68,56 @@ namespace CleanOrders.Infrastructure.Migrations
                     b.ToTable("Accounts");
                 });
 
+            modelBuilder.Entity("OrdersDomain.Core.Aggregates.Entities.Orders.Address", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AccountId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetAddress1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetAddress2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("Address");
+                });
+
             modelBuilder.Entity("OrdersDomain.Core.Aggregates.Entities.Orders.BusinessAddress", b =>
                 {
                     b.Property<string>("Id")
@@ -152,70 +202,33 @@ namespace CleanOrders.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("BillToId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("PayToId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ShipToId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BillToId");
+
+                    b.HasIndex("PayToId");
+
+                    b.HasIndex("ShipToId");
+
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("OrdersDomain.Core.Aggregates.Entities.Orders.OrderAddress", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsBillTo")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsPayTo")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsShipTo")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("OrderId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetAddress1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetAddress2")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderAddress");
                 });
 
             modelBuilder.Entity("OrdersDomain.Core.Aggregates.Entities.Users.Permissions", b =>
@@ -270,6 +283,13 @@ namespace CleanOrders.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("OrdersDomain.Core.Aggregates.Entities.Orders.Address", b =>
+                {
+                    b.HasOne("OrdersDomain.Core.Aggregates.Entities.Accounts.Account", null)
+                        .WithMany("Addresses")
+                        .HasForeignKey("AccountId");
+                });
+
             modelBuilder.Entity("OrdersDomain.Core.Aggregates.Entities.Orders.LineItem", b =>
                 {
                     b.HasOne("OrdersDomain.Core.Aggregates.Entities.Orders.Order", null)
@@ -279,13 +299,25 @@ namespace CleanOrders.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OrdersDomain.Core.Aggregates.Entities.Orders.OrderAddress", b =>
+            modelBuilder.Entity("OrdersDomain.Core.Aggregates.Entities.Orders.Order", b =>
                 {
-                    b.HasOne("OrdersDomain.Core.Aggregates.Entities.Orders.Order", null)
-                        .WithMany("Addresses")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("OrdersDomain.Core.Aggregates.Entities.Orders.Address", "BillToAddress")
+                        .WithMany()
+                        .HasForeignKey("BillToId");
+
+                    b.HasOne("OrdersDomain.Core.Aggregates.Entities.Orders.Address", "PayToAddress")
+                        .WithMany()
+                        .HasForeignKey("PayToId");
+
+                    b.HasOne("OrdersDomain.Core.Aggregates.Entities.Orders.Address", "ShipToAddress")
+                        .WithMany()
+                        .HasForeignKey("ShipToId");
+
+                    b.Navigation("BillToAddress");
+
+                    b.Navigation("PayToAddress");
+
+                    b.Navigation("ShipToAddress");
                 });
 
             modelBuilder.Entity("OrdersDomain.Core.Aggregates.Entities.Users.User", b =>
@@ -299,13 +331,13 @@ namespace CleanOrders.Infrastructure.Migrations
 
             modelBuilder.Entity("OrdersDomain.Core.Aggregates.Entities.Accounts.Account", b =>
                 {
+                    b.Navigation("Addresses");
+
                     b.Navigation("Users");
                 });
 
             modelBuilder.Entity("OrdersDomain.Core.Aggregates.Entities.Orders.Order", b =>
                 {
-                    b.Navigation("Addresses");
-
                     b.Navigation("LineItems");
                 });
 #pragma warning restore 612, 618

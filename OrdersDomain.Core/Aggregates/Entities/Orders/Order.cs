@@ -12,7 +12,17 @@ namespace OrdersDomain.Core.Aggregates.Entities.Orders
         public decimal Total { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
-        public virtual ICollection<OrderAddress> Addresses { get; set; } = new List<OrderAddress>();
+
+        [ForeignKey("BillToAddress")]
+        public string? BillToId { get; set; }
+        [ForeignKey("ShipToAddress")]
+        public string? ShipToId { get; set; }
+        [ForeignKey("PayToAddress")]
+        public string? PayToId { get; set; }
+        public Address? BillToAddress { get; set; }
+        public Address? ShipToAddress { get; set; }
+        public Address? PayToAddress { get; set; }
+
         [Required]
         public ICollection<LineItem> LineItems { get; set; }
     }

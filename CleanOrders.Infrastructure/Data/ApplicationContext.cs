@@ -3,6 +3,7 @@ using OrdersDomain.Core.Aggregates.Entities.Accounts;
 using OrdersDomain.Core.Aggregates.Entities.Orders;
 using OrdersDomain.Core.Aggregates.Entities.Users;
 using OrdersDomain.Core.Interfaces;
+using static OrdersDomain.Core.Enums.AddressEnums;
 
 namespace CleanOrders.Infrastructure.Data
 {
@@ -24,6 +25,13 @@ namespace CleanOrders.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Account>()
+                .Property(x => x.Country)
+                .HasConversion(x => x.ToString(), x => (Country)Enum.Parse(typeof(Country), x));
+            builder.Entity<Account>()
+                .Property(x => x.State)
+                .HasConversion(x => x.ToString(), x => (State)Enum.Parse(typeof(State), x));
             builder.Entity<Address>()
             .Property(address => address.Country)
                .HasConversion<string>();
@@ -37,7 +45,6 @@ namespace CleanOrders.Infrastructure.Data
 
             // Creates a join table for addresses and account
             builder.Entity<Account>().HasMany(x => x.Addresses).WithOne();
-
         }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<User> Users { get; set; }

@@ -1,4 +1,5 @@
-﻿using CleanOrders.Application.Interfaces;
+﻿using CleanOrders.API.ApiDtos.Orders;
+using CleanOrders.Application.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +18,9 @@ namespace CleanOrders.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder()
+        public async Task<IActionResult> CreateOrder(CreateOrderDto command)
         {
-            return Ok("Create an order");
+            return Ok(await _mediator.Send(command));
         }
 
         [HttpGet]

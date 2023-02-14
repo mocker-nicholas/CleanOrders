@@ -33,13 +33,13 @@ namespace CleanOrders.Infrastructure.Data
                 .Property(x => x.State)
                 .HasConversion(x => x.ToString(), x => (State)Enum.Parse(typeof(State), x));
             builder.Entity<Address>()
-            .Property(address => address.Country)
-               .HasConversion<string>();
+                .Property(address => address.Country)
+                .HasConversion<string>();
             builder.Entity<Address>()
-            .Property(address => address.State)
-               .HasConversion<string>();
+                .Property(address => address.State)
+                .HasConversion<string>();
             builder.Entity<User>()
-            .Property(user => user.RoleId)
+                .Property(user => user.RoleId)
                 .HasConversion<string>();
             builder.Entity<Permissions>().HasNoKey();
 

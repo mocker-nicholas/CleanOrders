@@ -41,6 +41,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(typeof(CreateAccountCommand).Assembly);
 builder.Services.AddScoped<IAccountRepositoryAsync, AccountRepository>();
 builder.Services.AddScoped<IUserRepositoryAsync, UsersRepository>();
+builder.Services.AddScoped<IOrdersRepositoryAsync, OrdersRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

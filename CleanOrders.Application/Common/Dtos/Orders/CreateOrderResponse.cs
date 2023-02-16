@@ -8,13 +8,13 @@
             Message = message;
         }
 
-        public CreateOrderResponse(OrderResponseDto data)
+        public CreateOrderResponse(object data)
         {
             Data = data;
         }
 
         public string Status { get; set; } = "success";
         public string Message { get; set; } = "success";
-        public OrderResponseDto? Data { get; set; }
+        public object? Data { get; set; }
     }
 }

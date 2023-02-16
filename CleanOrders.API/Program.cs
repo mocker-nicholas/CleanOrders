@@ -87,7 +87,6 @@ app.MapControllers();
 app.Run();
 
 // To Do
-// Add Meta Data into your database. Add models with Metadata properties
 // Throw exceptions for errors you cant do anything about. Birth date as user id? Exception
 // Get rid of generic responses of 200 with an error message. Return the appropriate response code.
 // Polish what you have
@@ -96,3 +95,4 @@ app.Run();
 //	- Start using policies to dictate who does what
 //	- Test everything for bugs
 //	- Where is your database at? Does it need to be updated?
+//  - Finish orders controller

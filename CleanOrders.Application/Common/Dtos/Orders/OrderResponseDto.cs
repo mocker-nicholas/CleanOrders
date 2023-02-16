@@ -9,8 +9,6 @@ namespace CleanOrders.Application.Common.Dtos.Orders
         {
             AccountId = command.AccountId;
             Total = command.Total;
-            DateCreated = command.DateCreated;
-            DateModified = command.DateModified;
             BillToAddress = command.BillToAddress;
             ShipToAddress = command.ShipToAddress;
             PayToAddress = command.PayToAddress;
@@ -19,8 +17,8 @@ namespace CleanOrders.Application.Common.Dtos.Orders
 
         public string AccountId { get; set; }
         public decimal Total { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+        public DateTime DateModified { get; set; } = DateTime.UtcNow;
         public Address? BillToAddress { get; set; }
         public Address? ShipToAddress { get; set; }
         public Address? PayToAddress { get; set; }

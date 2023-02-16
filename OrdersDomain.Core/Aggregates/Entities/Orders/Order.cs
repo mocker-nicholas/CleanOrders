@@ -10,8 +10,8 @@ namespace OrdersDomain.Core.Aggregates.Entities.Orders
         [ForeignKey("Account")]
         public string AccountId { get; set; }
         public decimal Total { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
+        public DateTime DateModified { get; set; } = DateTime.Now;
 
         [ForeignKey("BillToAddress")]
         public string? BillToId { get; set; }

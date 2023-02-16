@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ApiDtos\Orders\" />
     <Folder Include="Endpoints\" />
   </ItemGroup>
 

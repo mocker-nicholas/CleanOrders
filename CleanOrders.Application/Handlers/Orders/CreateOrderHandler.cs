@@ -12,6 +12,12 @@ namespace CleanOrders.Application.Handlers.Orders
         private readonly IOrdersRepositoryAsync _ordersRepository;
         private readonly IUserService _userService;
 
+        public CreateOrderHandler(IOrdersRepositoryAsync ordersRepository, IUserService userService)
+        {
+            _ordersRepository = ordersRepository;
+            _userService = userService;
+        }
+
         public async Task<CreateOrderResponse> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             // Create an order
@@ -32,8 +38,12 @@ namespace CleanOrders.Application.Handlers.Orders
                     billTo.StreetAddress2 = request.BillToAddress.StreetAddress2;
                     billTo.Country = request.BillToAddress.Country;
                     billTo.State = request.BillToAddress.State;
+                    billTo.City = request.BillToAddress.City;
                     billTo.PostalCode = request.BillToAddress.PostalCode;
+
                     newOrder.BillToId = billTo.Id;
+                    newOrder.BillToAddress = billTo;
+                    addresses.Add(billTo);
                 }
                 if (request.ShipToAddress != null)
                 {
@@ -44,8 +54,12 @@ namespace CleanOrders.Application.Handlers.Orders
                     shipTo.StreetAddress2 = request.ShipToAddress.StreetAddress2;
                     shipTo.Country = request.ShipToAddress.Country;
                     shipTo.State = request.ShipToAddress.State;
+                    shipTo.City = request.ShipToAddress.City;
                     shipTo.PostalCode = request.ShipToAddress.PostalCode;
-                    newOrder.BillToId = shipTo.Id;
+
+                    newOrder.ShipToId = shipTo.Id;
+                    newOrder.ShipToAddress = shipTo;
+                    addresses.Add(shipTo);
                 }
                 if (request.PayToAddress != null)
                 {
@@ -56,12 +70,19 @@ namespace CleanOrders.Application.Handlers.Orders
                     payTo.StreetAddress2 = request.PayToAddress.StreetAddress2;
                     payTo.Country = request.PayToAddress.Country;
                     payTo.State = request.PayToAddress.State;
+                    payTo.City = request.PayToAddress.City;
                     payTo.PostalCode = request.PayToAddress.PostalCode;
-                    newOrder.BillToId = payTo.Id;
+
+                    newOrder.PayToId = payTo.Id;
+                    newOrder.PayToAddress = payTo;
+                    addresses.Add(payTo);
                 }
             }
 
             List<LineItem> lineItems = new();
+            if (request.LineItems != null)
+            {
+            }
 
             var response = await _ordersRepository.AddAsync(newOrder, addresses, lineItems);
             return new CreateOrderResponse(response);

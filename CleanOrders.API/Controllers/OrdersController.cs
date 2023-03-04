@@ -2,6 +2,7 @@
 using CleanOrders.Application.Common.Dtos.Orders;
 using CleanOrders.Application.Interfaces;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OrdersDomain.Core.Aggregates.Entities.Users;
 
@@ -20,6 +21,7 @@ namespace CleanOrders.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateOrder(CreateOrderCommand command)
         {
             // Validate Order is being made for same account as logged in user

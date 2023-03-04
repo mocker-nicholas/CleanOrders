@@ -23,7 +23,6 @@ namespace CleanOrders.Application.Handlers.Orders
             // Create an order
             Order newOrder = new();
             newOrder.AccountId = request.AccountId;
-            newOrder.Total = request.Total;
 
             // Create Addresses
             List<Address> addresses = new();
@@ -82,6 +81,20 @@ namespace CleanOrders.Application.Handlers.Orders
             List<LineItem> lineItems = new();
             if (request.LineItems != null)
             {
+                foreach (var item in request.LineItems)
+                {
+                    LineItem newItem = new LineItem();
+                    newItem.ItemName = item.ItemName;
+                    newItem.ItemDescription = item.ItemDescription;
+                    newItem.Quantity = item.Quantity;
+                    newItem.BaseAmount = item.BaseAmount;
+                    newItem.TaxAmount = item.TaxAmount;
+                    newItem.TotalAmount = item.TotalAmount;
+
+                    newItem.OrderId = newOrder.Id;
+                    lineItems.Add(newItem);
+                    newOrder.Total += item.TotalAmount;
+                }
             }
 
             var response = await _ordersRepository.AddAsync(newOrder, addresses, lineItems);

@@ -8,7 +8,6 @@ namespace CleanOrders.Application.Commands.Orders
     public class CreateOrderCommand : IRequest<CreateOrderResponse>
     {
         public string AccountId { get; set; }
-        public decimal Total { get; set; }
         public ApiAddressDto? BillToAddress { get; set; }
         public ApiAddressDto? ShipToAddress { get; set; }
         public ApiAddressDto? PayToAddress { get; set; }
@@ -34,7 +33,7 @@ namespace CleanOrders.Application.Commands.Orders
         public string ItemName { get; set; }
         public string ItemDescription { get; set; }
         public int Quantity { get; set; }
-        public int BaseAmount { get; set; }
+        public decimal BaseAmount { get; set; }
         public decimal TaxAmount { get; set; }
         public decimal TotalAmount { get; set; }
     }

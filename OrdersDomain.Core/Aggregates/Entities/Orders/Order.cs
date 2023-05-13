@@ -22,7 +22,6 @@ namespace OrdersDomain.Core.Aggregates.Entities.Orders
         public Address? BillToAddress { get; set; }
         public Address? ShipToAddress { get; set; }
         public Address? PayToAddress { get; set; }
-
         [Required]
         public ICollection<LineItem> LineItems { get; set; }
     }

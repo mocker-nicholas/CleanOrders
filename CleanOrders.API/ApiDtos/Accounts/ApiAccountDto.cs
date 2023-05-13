@@ -1,4 +1,5 @@
 ﻿using OrdersDomain.Core.Aggregates.Entities.Orders;
+using OrdersDomain.Core.Enums;
 using static OrdersDomain.Core.Enums.AddressEnums;
 
 namespace CleanOrders.API.ApiDtos.Accounts
